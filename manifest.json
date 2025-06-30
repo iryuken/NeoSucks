@@ -32,7 +32,6 @@
             "hooks/ace-mod.js",
             "hooks/bypass.js",
             "hooks/nyxie.js",
-            "screen.js"
          ],
          "matches": [
             "https://*.examly.io/*",
