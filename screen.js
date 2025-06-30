@@ -2,7 +2,7 @@
 // @name         image in snist ass
 // @namespace    http://tampermonkey.net/
 // @version      1.3
-// @description  Replaces getDisplayMedia with a canvas stream using a static image (https://ryuken.neocities.org/screen.jpg)
+// @description  Replaces getDisplayMedia with your ass stream using a static image (https://ryuken.neocities.org/screen.jpg)
 // @author       You
 // @match        *://*/*
 // @grant        none
