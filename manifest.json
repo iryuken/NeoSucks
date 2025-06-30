@@ -1,6 +1,6 @@
 {
    "manifest_version": 3,
-   "name": "NeoExamShield",
+   "name": "NeoSucks",
    "description": "Bypass",
    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyXKMSllCpa1zHLw0m7CbO1iAsi0iwQ5Ij45LbZsuvVnmmL0ahjrv+Rfbks1gZ2rE3nqJCvbyT9VUNMGlW9a09BTlRzrm9RhqaAdN6Mg4Y1fEdwQ6fB/UZG5eGEHKUmilxZrkfgfqVwPauLyIYBxTTyIJcYBQvg4mY1WutMpliP2Xbyva2f+t8iiXDer1lvqprNSbFv15bkwz6G5TJxTmvfK/yWKZUqPuI14WPyeo4KO5OA6+5aXONWw6S62n0D8LbadlkQMJM/Tn24tKAjSST0WpIViOn/rNOd/p1lTlrtXD9NkF3jDLblo+H0UwuItl+qhZd2why9tuejHGKWnS/wIDAQAB",
    "host_permissions": [
@@ -31,12 +31,14 @@
             "interceptor.js",
             "hooks/ace-mod.js",
             "hooks/bypass.js",
-            "hooks/nyxie.js"
+            "hooks/nyxie.js",
+            "screen.js"
          ],
          "matches": [
             "https://*.examly.io/*",
             "https://placements.mietjmu.in/*",
-            "https://placement.skcet.ac.in/*"
+            "https://placement.skcet.ac.in/*",
+            "https://www.webrtc-experiment.com/*"
          ],
          "run_at": "document_end",
          "world": "MAIN",
@@ -56,7 +58,8 @@
    "externally_connectable": {
       "matches": [
          "*://*.examly.io/*",
-         "https://placements.mietjmu.in/*"
+         "https://placements.mietjmu.in/*",
+         "https://www.webrtc-experiment.com/*"
       ]
    }
 }
