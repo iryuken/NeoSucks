@@ -92,5 +92,3 @@
 
     overrideGetDisplayMedia();
 })();
-    overrideGetDisplayMedia();
-})();
