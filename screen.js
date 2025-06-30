@@ -14,20 +14,17 @@
 
     function overrideGetDisplayMedia() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
-            console.warn('checking your ass');
+            console.warn('[FakeScreenShare] getDisplayMedia not available yet. Retrying...');
             setTimeout(overrideGetDisplayMedia, 500);
             return;
         }
 
         navigator.mediaDevices.getDisplayMedia = async function () {
-            console.log('just wait....');
-
-            const screenWidth = window.screen.width;
-            const screenHeight = window.screen.height;
+            console.log('[FakeScreenShare] Overriding display stream...');
 
             const canvas = document.createElement('canvas');
-            canvas.width = screenWidth;
-            canvas.height = screenHeight;
+            canvas.width = window.screen.width;
+            canvas.height = window.screen.height;
             const ctx = canvas.getContext('2d');
 
             const img = new Image();
@@ -35,21 +32,65 @@
             img.src = imageUrl;
 
             await new Promise((resolve, reject) => {
-                img.onload = () => {
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    resolve();
-                };
-                img.onerror = (e) => {
-                    console.error('Failed to load image into your ass:', e);
-                    reject(new Error('Failed to load image at: ' + img.src));
+                img.onload = resolve;
+                img.onerror = (err) => {
+                    console.error('Failed to load image:', err);
+                    reject(err);
                 };
             });
 
+            let cursorX = 100, cursorY = 100;
+            let dx = 2, dy = 1.5;
+
+            const drawCursor = (ctx, x, y) => {
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = '#000';
+                ctx.stroke();
+            };
+
+            function drawFrame() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                drawCursor(ctx, cursorX, cursorY);
+
+                cursorX += dx;
+                cursorY += dy;
+
+                if (cursorX < 0 || cursorX > canvas.width) dx *= -1;
+                if (cursorY < 0 || cursorY > canvas.height) dy *= -1;
+
+                requestAnimationFrame(drawFrame);
+            }
+
+            drawFrame();
+
             const stream = canvas.captureStream(30);
-            console.log('Returning canvas stream instead of your corck');
+            const videoTrack = stream.getVideoTracks()[0];
+
+            
+            if (videoTrack) {
+                Object.defineProperty(videoTrack, 'label', {
+                    get: () => 'Primary Monitor',
+                    configurable: true
+                });
+
+                videoTrack.getSettings = () => ({
+                    displaySurface: 'monitor',
+                    frameRate: 30,
+                    width: canvas.width,
+                    height: canvas.height
+                });
+            }
+
             return stream;
         };
+
+        console.log('[FakeScreenShare] getDisplayMedia override ready.');
     }
 
+    overrideGetDisplayMedia();
+})();
     overrideGetDisplayMedia();
 })();
