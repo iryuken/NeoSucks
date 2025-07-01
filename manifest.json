@@ -31,7 +31,7 @@
             "interceptor.js",
             "hooks/ace-mod.js",
             "hooks/bypass.js",
-            "hooks/nyxie.js",
+            "hooks/nyxie.js"
          ],
          "matches": [
             "https://*.examly.io/*",
